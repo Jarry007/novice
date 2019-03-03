@@ -1,2 +1,7 @@
 # novice
-破壳而出，看看世界
+破壳而出，看看世界  
+一天一个小Demo
+
+---
+## 一天一个小Demo
+- 2019/3/4 [pc端canvas刮刮卡的实现](https://blogai.cn/guaguaka)

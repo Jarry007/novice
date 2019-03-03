@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>刮刮卡</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .card {
+            position: absolute;
+            width: 500px;
+            height: 360px;
+            box-shadow: 5px 4px 6px 2px #ccced1;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            text-align: center;
+        }
+
+        .header {
+            width: 100%;
+            height: 240px;
+            background: cornflowerblue;
+            background: radial-gradient(15px at bottom left, transparent 50%, cornflowerblue 50%) bottom left,
+            radial-gradient(15px at bottom right, transparent 50%, cornflowerblue 50%) bottom right;
+            background-size: 51%;
+            background-repeat: no-repeat;
+
+        }
+
+        .footer {
+            width: 100%;
+            height: 120px;
+            background: cornflowerblue;
+            background: radial-gradient(15px at top left, transparent 50%, cornflowerblue 50%) top left,
+            radial-gradient(15px at top right, transparent 50%, cornflowerblue 50%) top right;
+            background-size: 51%;
+            background-repeat: no-repeat;
+            line-height: 120px;
+        }
+
+        b {
+            width: 90%;
+            border-bottom: 2px dotted #dddddd;
+            display: inline;
+            position: absolute;
+            transform: translateX(-50%);
+        }
+
+        .show {
+            width: 60%;
+            height: 70px;
+            position: absolute;
+            text-align: center;
+            line-height: 70px;
+            border: 1px dashed #dddddd;
+            background: aliceblue;
+            margin-top: 20px;
+            transform: translateX(-50%);
+            color: #673AB7;
+            font-size: 19px;
+            font-weight: 500;
+        }
+
+        .canvas {
+            position: absolute;
+            width: 60%;
+            height: 70px;
+            margin-top: 20px;
+            z-index: 1;
+            transform: translateX(-50%);
+        }
+
+        .magic {
+            width: 100px;
+            height: 100px;
+
+            float: left;
+            margin-left: 50px;
+            margin-top: 20px;
+            background: linear-gradient(rgb(105, 64, 209) 30%, transparent 30%, transparent 70%, rgba(205, 0, 123, 0.4) 70%),
+            linear-gradient(to left, rgba(205, 0, 0, 0.2) 30%, transparent 30%, transparent 70%, rgba(0, 205, 196, 0.8) 70%);
+            background-repeat: repeat;
+            background-size: 10% 100%, 100% 10%;
+            background-position: 50% 0, 0 50%;
+        }
+
+        .magic_2 {
+            width: 100px;
+            height: 100px;
+            float: right;
+            margin-right: 50px;
+            margin-top: 20px;
+            background: linear-gradient(rgb(105, 64, 209) 30%, transparent 30%, transparent 70%, rgba(205, 0, 123, 0.4) 70%),
+            linear-gradient(to left, rgba(205, 0, 0, 0.2) 30%, transparent 30%, transparent 70%, rgba(0, 205, 196, 0.8) 70%);
+            background-repeat: repeat;
+            background-size: 10% 100%, 100% 10%;
+            background-position: 50% 0, 0 50%;
+        }
+
+        .nose {
+            background: linear-gradient(to right, #537bef, #57bfcf);
+            width: 100px;
+            height: 20px;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+        <div class="magic" id="magic"></div>
+        <div class="magic_2" id="magic2"></div>
+        <div class="nose" id="nose"></div>
+    </div>
+    <b></b>
+    <div class="footer">
+        <span class="show" id="say">来了老弟！</span>
+        <canvas class="canvas" id="show">刮刮卡</canvas>
+    </div>
+
+</div>
+<script>
+    function f() {
+        const canvas = document.getElementById('show'),
+            context = canvas.getContext('2d');
+        context.fillStyle = '#888';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.fillText('刮一刮', 25, 60);
+        //使用globalCompositeOperation 中的destination-out ,使已经填充的颜色变透明;
+        context.globalCompositeOperation = 'destination-out';
+        var mousemove = false;
+        //canvas 监听mousemove，进行擦除；
+        canvas.addEventListener('mousedown', function (e) {
+            e.preventDefault(); //去除默认响应
+            mousemove = true;//按下鼠标，mousemove开启
+        });
+        canvas.addEventListener('mousemove', function (e) {
+            if (mousemove) {
+                context.beginPath();
+                context.arc(e.offsetX, e.offsetY, 50, 0, Math.PI * 2);//开始擦除，记录坐标
+                context.fillStyle = '#fffff';//随便选一个
+                context.fill();
+                //计算画布的所有像素
+                let imgData = context.getImageData(0, 0, canvas.width, canvas.height).data,
+                    long = imgData.length,
+                    num = 0;//初始化刮开的像素
+
+                for (i = 0; i < long; i += 4) {
+                    let transparent = imgData[i + 4];
+                    if (transparent < 10) {//如果透明度小于10
+                        num++;//便刮开
+                    }
+                }
+                // 像素总长/4 = 所有元素总和。除以8，即为当刮开占比为二分之一时，刮开完毕。
+                if (num > long / 8) {
+                    let show = document.getElementById('say'),
+                        color = document.getElementById('magic'),
+                        color2 = document.getElementById('magic2'),
+                        nose = document.getElementById('nose');
+                    show.style.zIndex = 2;
+                    color.style.backgroundRepeat = "no-repeat";
+                    color2.style.backgroundRepeat = "no-repeat";
+                    nose.style.width = '50px';
+                }
+            }
+
+        });
+        //松手，mousemove为false
+        canvas.addEventListener('mouseup', function () {
+            if (mousemove) {
+                mousemove = false;
+            }
+        });
+
+    }
+
+    f()
+</script>
+</body>
+</html>

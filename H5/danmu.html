@@ -1,0 +1,187 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>弹幕-手机端</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style type="text/css">
+       *{
+           padding: 0;
+           margin: 0;
+       }
+        html,body{
+            height: 100%;
+            user-select: none;
+        }
+        .screen{
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+            background-color: rgba(249, 249, 249, 0.78);
+        }
+        .top{
+            position: absolute;
+            top:0;
+            height: 80px;
+            width: 100%;
+            line-height: 80px;
+            background-color: #ffffff;
+            text-align: center;
+            font-size: 35px;
+            font-weight: bold;
+            color: rgba(2, 2, 5, 0.87);
+            box-shadow: 17px -5px 40px #6d6a6a8f
+        }
+        .top span{
+            position: absolute;
+            left: 55px;
+            color: #7c22d6;
+            font-size: 25px;
+        }
+        .send{
+            position:absolute;
+            bottom: 0;
+            width:100%;
+            height:240px;
+            line-height:240px;
+            background-color: #ffffff;
+            text-align: center;
+            box-shadow: 17px 11px 40px #6d6a6a8f;
+        }
+        .input{
+            position: absolute;
+            left:50%;
+            top:50%;
+            margin: -65px -446px;
+            font-size: 25px;
+        }
+        .text{
+            float: left;
+            width: 584px;
+            height: 74px;
+            border: none;
+            border-radius:109px;
+            font-size: 35px;
+            background-color: rgba(17, 22, 45, 0.04);
+        }
+        .btn{
+            float:left;
+            margin-left: 30px;
+            height: 74px;
+            width: 74px;
+            background-color: rgba(135, 17, 208, 0.88);
+            line-height: 74px;
+            font-size: 35px;
+            color: #eeeeee;
+            cursor: pointer;
+            border-radius:22px;
+            box-shadow:6px 7px 12px -1px #968f96db;
+        }
+
+       .say{
+           float: right;
+           margin-left: 30px;
+           width: 160px;
+           height: 91px;
+           font-size: 38px;
+           font-weight: bold;
+           line-height: 91px;
+           color: #9f2dee;
+           cursor: pointer;
+           border-radius:62px;
+       }
+        .s_show div{
+            position: absolute;
+            font-size: 40px;
+            font-weight: bold;
+            color: rgba(3, 5, 2, 0.5);
+        }
+       .btn:hover{
+           float: left;
+           margin-left: 32px;
+           width: 65px;
+           background-color: rgba(31, 208, 185, 0.88);
+           line-height: 65px;
+           font-size: 35px;
+           color: #eeeeee;
+           cursor: pointer;
+           border-radius:15px;
+       }
+    </style>
+</head>
+<body>
+<div class="screen">
+    <div class="top">
+        Live Show
+    </div>
+    <div class="send">
+        <div class="input">
+            <input type="text" class="text" placeholder="    Say   Something   ...">
+            <div class="btn" id="btn">
+            </div>
+            <div class="say">SEND</div>
+        </div>
+    </div>
+    <div class="s_show">
+        <div>让开！挡到我用无限屏了</div>
+        <div>主播求微信</div>
+        <div>来了老弟</div>
+        <div>7777777777777777777777777</div>
+        <div>求求你，不要秀了</div>
+        <div>这也太真实了吧</div>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        (function () {
+            //获取所有需要的节点
+            let sShowList = document.querySelectorAll('.s_show div'),
+                oSend = document.querySelector('.send'),
+                oShow = document.querySelector('.s_show'),
+                oText = document.querySelector('.text'),
+                otop = document.querySelector('.top'),
+                oBtn = document.querySelector('.btn'),
+                oTime = 0,//初始化点击时间，用来限制点击频率
+                waitTime = 3;
+
+            oBtn.onclick = function () {
+                if (new Date() - oTime > 3000 && oText.value) {//点击间隔大于3秒
+                    let Div = document.createElement('div');
+                    Div.innerHTML = oText.value;
+                    oShow.appendChild(Div);//添加弹幕节点
+                    init(Div);//初始化弹幕效果
+                    oTime = new Date();
+                }
+            };
+
+            for (i = 0; i < sShowList.length; i++) {//遍历所有已有弹幕节点，初始化
+                init(sShowList[i])
+            }
+
+            function init(obj) {
+                var screenHeight = document.documentElement.clientHeight,
+                    screenWidth = document.documentElement.clientWidth,//屏幕宽高
+                    sendHeight = oSend.clientHeight,//输入界面高度
+                    topHeight = otop.clientHeight,//标题栏高度
+                    height = screenHeight - sendHeight - obj.clientHeight - topHeight,//弹幕显示区域高度
+                    width = screenWidth - obj.clientWidth;
+
+                obj.style.top = Math.random() * height + topHeight + 'px';//+topHeight 是为了让弹幕不被标题栏遮住
+                obj.style.left = width + 'px';
+                move(obj, width);
+            }
+            //动画效果
+            function move(obj, width) {
+                if (width > -obj.clientWidth) {
+                    width -= 2;
+                    obj.style.left = width + 'px';
+                    requestAnimationFrame(function () {
+                        move(obj, width);
+                    });//生成动画，2px移动
+                } else {
+                    oShow.removeChild(obj);//如果弹幕显示宽度小于0—obj.width ,移除该节点。
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

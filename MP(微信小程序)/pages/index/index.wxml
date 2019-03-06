@@ -1,0 +1,17 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+ 
+      <image  wx:if="{{src==''}}" bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <block wx:else>
+      <image src='{{src}}' mode="cover" class="userinfo-avatar"></image>
+    </block>
+  </view>
+  <view class="usermotto">
+  <button wx:if="{{src==''}}" bindtap='choose'>更换头像</button>
+  <block wx:else>
+   <button  bindtap='upload'>上传头像</button>
+  </block>
+  </view>
+</view>

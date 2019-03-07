@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--
+@Jarry007
+1. canvas 创建两个一样的画布，储存验证图
+2. 相同坐标通过fill,clip截取两个验证块
+3. 监听鼠标按下事件，记录初始X坐标
+4. 监听鼠标移动事件，记录下移动坐标，验证块随着移动
+5. 监听鼠标松开事件，记录结束X坐标
+6. 对比移动距离和裁剪时的x坐标
+7. 判断差值是否可忽略
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css" rel="stylesheet">
+        *{
+            box-sizing: border-box;
+        }
+        body{
+            position: relative;
+        }
+        .container{
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        #block{
+            position: absolute;
+            left: 0px;
+        }
+        .move{
+            width: 400px;
+            height: 40px;
+            background: #dedede;
+            overflow: hidden;
+            border: 1px solid #fff;
+            border-radius: 4px;
+        }
+        #move{
+            left:0px;
+            position: absolute;
+        }
+        .backgroud_{
+            width: 400px;
+            height: 40px;
+            background: #59dbc9;
+            left: -400px;
+            position: absolute;
+            text-align: center;
+            line-height: 40px;
+        }
+        .hover{
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 4px;
+            border: 1px solid #dddddd;
+        }
+        .hover:hover{
+            background: #59dbc9;
+        }
+        .info{
+            position: absolute;
+            z-index: -1;
+            transform: translateX(-50%);
+            color: #611665;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <canvas width="400" height="200" id="canvas"></canvas>
+    <canvas width="400" height="200" id="block"></canvas>
+    <div class="move" id="move_p">
+        <div class="hover" id="move">-></div>
+        <div class="backgroud_" id="background_"><span class="info" id="info">Success Jarry !</span></div>
+    </div>
+</div>
+<script type="text/javascript" rel="script">
+    (function () {
+        const canvas = document.getElementById('canvas'),
+            block = document.getElementById('block'),
+            move_block = document.getElementById('move_p'),
+            move = document.getElementById('move'),
+            success = document.getElementById('info'),
+            background_ = document.getElementById('background_');
+
+        let ctx_c = canvas.getContext('2d'),
+            ctx_b = block.getContext('2d'),
+            img = document.createElement('img');
+        img.src = 'car.jpg';
+        img.onload = function () {
+            ctx_c.drawImage(img, 0, 0, canvas.width, canvas.height);
+            ctx_b.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+            //计算裁剪块的像素，裁剪
+            let block_data = ctx_b.getImageData(x, y, l, l);
+            block.width = l;
+            ctx_b.putImageData(block_data, 0, y);
+        };
+
+
+        let l = 40, //拼接块边长
+            x = 150 + Math.random() * (canvas.width - 150 - l), //裁剪横坐标，这样可以保证裁剪的拼接块横坐标在150以后，保证充分拖动距离
+            y = 10 + Math.random() * (canvas.height - l - 10);  // y轴坐标
+        //裁剪拼接块
+        function cut_i(ctx) {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y + l);
+            ctx.lineTo(x + l, y + l);
+            ctx.lineTo(x + l, y);
+            ctx.clip()
+        }
+        //裁剪主画布
+        function fill_i(ctx) {
+            // ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x, y + l);
+            ctx.lineTo(x + l, y + l);
+            ctx.lineTo(x + l, y);
+            ctx.fillStyle = '#306e7c';  //这里无所谓，随便填
+            ctx.globalCompositeOperation = 'xor'; //使裁剪区域透明
+            ctx.fill()
+        }
+
+        cut_i(ctx_b);
+        fill_i(ctx_c);
+
+        //鼠标事件
+        let mousemove = false,
+            starX = 0;
+        move_block.addEventListener('mousedown', function (e) { //监听鼠标按下
+            e.preventDefault();
+            mousemove = true;
+            starX = e.clientX   //记录开始时的坐标
+
+        });
+        move_block.addEventListener('mousemove', function (e) {//监听鼠标移动
+            if (mousemove) {
+                let move_x = e.clientX - starX;  //移动距离
+                if (move_x > canvas.width - l) {
+                    move_x = canvas.width - l;
+                } else if (move_x < 0) {
+                    move_x = 0;
+                }
+
+                block.style.left = move_x + 'px';
+                move.style.left = move_x + 'px';
+                background_.style.left = (move_x - 400) + 'px';
+                console.log(x + ':' + move_x);
+                move_block.addEventListener('mouseup', function (res) {//鼠标松开
+                    if (Math.abs(move_x - x) < 2) {//可接受差错值：大于小于2
+                        mousemove = false;
+                        background_.style.left = 0;
+                        success.style.zIndex = 1;
+                    } else {
+                        move_x = 0;
+                        mousemove = false;
+                        block.style.left = 0;
+                        move.style.left = 0;
+                        background_.style.left = '-400px';
+                    }
+                })
+            }
+        })
+    })()
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style rel="stylesheet" type="text/css">
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        body{
+            height: 100%;
+            background: cornflowerblue;
+            box-sizing: border-box;
+        }
+        .container{
+            margin: 0 auto;
+            width: 300px;
+            height: 300px;
+            margin-top: 20px;
+
+
+        }
+        .top{
+            margin: 0 auto;
+            height: 40vh;
+            width: 50vw;
+
+        }
+        .bottom{
+            width: 100vw;
+            height: 50vh;
+            display: inline-block;
+
+        }
+        .bottom .left{
+            width: 50%;
+            height: 100%;
+            float: left;
+
+        }
+        .bottom .right{
+            width: 50%;
+            height: 100%;
+            float: right;
+
+        }
+        .item{
+            display: inline-block;
+            margin-left: 5px;
+        }
+        .span{
+            width: 30px;
+            height:30px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            background: #fff;
+            animation: load 1.5s linear infinite;
+        }
+        .span:nth-child(1){
+            animation-delay: 0.5s;
+        }
+        .span:nth-child(2){
+            animation-delay: 1s;
+        }
+        .span:nth-child(3){
+            animation-delay: 1.5s;
+        }
+        @keyframes load {0%,100%{-webkit-transform:translate(0px,0px) rotate(0deg);transform:translate(0px,0px) rotate(0deg)}
+            16%,33%{-webkit-transform:translate(-40px,0px) rotate(-90deg);transform:translate(-40px,0px) rotate(-90deg)}
+            66%,83%{-webkit-transform:translate(40px,0px) rotate(90deg);transform:translate(40px,0px) rotate(90deg)}}
+        .block_1{
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
+            margin-left: 5px;
+        }
+        @keyframes loading1{
+            0%,50%{transform: translateY(0)}
+            20%{transform: translateY(-100%)}
+            750%{transform: translateY(100%)}
+        }
+        .block_1:nth-child(2n){
+            animation: loading1 1s ease-in-out infinite
+        }
+        .block_1:nth-child(2n-1){
+            animation: loading2 1s ease-in-out infinite
+        }
+        @keyframes loading2{
+            0%,50%{transform: translateY(0)}
+            25%{transform: translateY(100%)}
+            75%{transform: translateY(-100%)}
+        }
+        .block_2{
+            width: 30px;
+            height: 30px;
+            background: #fff;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
+            margin-left: 20px;
+            animation: loading3 1.5s ease-in infinite
+        }
+        .block_2:nth-child(1){
+            animation-delay: 0.5s
+        }
+        .block_2:nth-child(2){
+            animation-delay: 1s
+        }
+        .block_2:nth-child(3){
+            animation-delay: 1.5s
+        }
+        @keyframes loading3{
+            0%{transform: translate(0)}
+            30%{transform: translateX(100px) rotate(90deg)}
+            65%{transform: translateY(250px) rotate(180deg)}
+            100%{transform: translateY(500px) rotate(270deg)}
+        }
+
+    </style>
+</head>
+<body>
+<div class="top">
+    <div class="container">
+        <div class="item">
+            <div class="span"></div>
+            <div class="span"></div>
+            <div class="span"></div>
+        </div>
+        <div class="item">
+            <div class="span"></div>
+            <div class="span"></div>
+            <div class="span"></div>
+        </div>
+        <div class="item">
+            <div class="span"></div>
+            <div class="span"></div>
+            <div class="span"></div>
+        </div>
+    </div>
+</div>
+<div class="bottom">
+    <div class="left"><div class="container">
+        <div class="block_1"></div>
+        <div class="block_1"></div>
+        <div class="block_1"></div>
+        <div class="block_1"></div>
+        <div class="block_1"></div>
+        <div class="block_1"></div>
+        <div class="block_1"></div>
+
+    </div></div>
+    <div class="right"><div class="container">
+        <div class="block_2"></div>
+        <div class="block_2"></div>
+        <div class="block_2"></div>
+    </div></div>
+</div>
+</body>
+</html>

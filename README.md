@@ -10,3 +10,4 @@
 - 2019/3/7 [PC端滑动验证码的实现](https://blogai.cn/verification)
 - 2019/3/8 [flask中使用Ckeditor](https://blogai.cn/ckdemo)
 - 2019/3/9 [移动端实现摇一摇功能](https://blogai.cn/shake)
+- 2019/3/10 [css3绘制简单的Loading动画](https://blogai.cn/loading)

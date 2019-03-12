@@ -1,0 +1,37 @@
+<view class='show' bindtap='choose'>
+  <view class='load'>
+  <view class='item'>
+    <view class='block'></view>
+    <view class='block'></view>
+    <view class='block'></view>
+    </view>
+    <view class='item'>
+    <view class='block'></view>
+    <view class='block'></view>
+    <view class='block'></view>
+    </view>
+    <view class='item'>
+    <view class='block'></view>
+    <view class='block'></view>
+    <view class='block'></view>
+    </view>
+  </view>
+</view>
+<view class='show'>
+  <view class='load'>
+    <view class='block_1'></view>
+    <view class='block_1'></view>
+    <view class='block_1'></view>
+    <view class='block_1'></view>
+    <view class='block_1'></view>
+    <view class='block_1'></view>
+    <view class='block_1'></view>
+  </view>
+</view>
+<view class='show'>
+  <view class='load'>
+    <view class='block_2'></view>
+    <view class='block_2'></view>
+    <view class='block_2'></view> 
+  </view>
+</view>

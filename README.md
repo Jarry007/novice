@@ -11,3 +11,5 @@
 - 2019/3/8 [flask中使用Ckeditor](https://blogai.cn/ckdemo)
 - 2019/3/9 [移动端实现摇一摇功能](https://blogai.cn/shake)
 - 2019/3/10 [css3绘制简单的Loading动画](https://blogai.cn/loading)
+- 2019/3/11 这几天生病了，很难受，也没空专心弄。划个水吧，等病好了就补上。
+- 2019/3/12 病依然没好，可能是最近熬夜熬得，也不怎么正常饮食。

@@ -1,0 +1,11 @@
+
+<canvas canvas-id='canvas1' class='canvas' ></canvas>
+<canvas canvas-id='block' class='block' ></canvas>
+
+<image  src="{{pic}}" class='three' style='top:{{y}}px;left:{{left}}px'></image>
+
+<view class='container'>
+   <area>
+      <view direction="horizontal" bindtouchmove='move' bindtouchend='end' class='view' style='left:{{left}}px'>--></view>
+    </area>
+ </view>

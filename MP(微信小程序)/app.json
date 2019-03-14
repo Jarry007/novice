@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/index/vfblock",
     "pages/index/verification",
     "pages/index/index"
   ],

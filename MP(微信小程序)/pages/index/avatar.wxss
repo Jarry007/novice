@@ -1,0 +1,16 @@
+/* pages/index/avatar.wxss */
+page{
+  box-sizing: border-box;
+}
+.normal{
+  width: 100vw;
+  height: 40vh;
+  border: 1rpx solid black;
+  margin: 0 auto
+}
+.show{
+  width: 350px;
+  height: 350px;
+  border: 1px solid black;
+  margin: 0 auto;
+}

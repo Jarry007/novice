@@ -1,0 +1,5 @@
+
+<view class='show' bindtouchstart='start' bindtouchmove='move'>
+  <image src='{{img}}' style=' width:{{width}}px; height:{{height}}px'></image>
+</view>
+<button bindtap='choose'>上传头像</button>

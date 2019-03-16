@@ -14,3 +14,6 @@
 - 2019/3/11 这几天生病了，很难受，也没空专心弄。划个水吧，等病好了就补上。
 - 2019/3/12 病依然没好，可能是最近熬夜熬得，也不怎么正常饮食。
 - 2019/3/13 [微信小程序下实现滑块验证码](https://blog.csdn.net/qq_41107410/article/details/88562426)
+- 2019/3/14 [微信小程序双指缩放及图片自适应](https://blog.csdn.net/qq_41107410/article/details/88602313)
+- 2019/3/15 [使用python给朋友空间留言每日天气状况](https://blog.csdn.net/qq_41107410/article/details/79889100)
+- 2019/3/16 [微信小程序连接图灵api实现智能聊天](https://blog.csdn.net/qq_41107410/article/details/82926039)

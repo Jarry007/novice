@@ -1,16 +1,32 @@
 /* pages/index/avatar.wxss */
 page{
   box-sizing: border-box;
-}
-.normal{
-  width: 100vw;
-  height: 40vh;
-  border: 1rpx solid black;
-  margin: 0 auto
+ background: rgba(5, 5, 5, 0.774)
 }
 .show{
-  width: 350px;
-  height: 350px;
-  border: 1px solid black;
-  margin: 0 auto;
+  position: absolute;
+  overflow: hidden;
+  top: 40%;
+  transform: translateY(-50%);
+}
+.img{
+  overflow: scroll;
+}
+
+.cut{
+  width: 100vw;
+  height: 100vw;
+  top:50%;
+  transform: translateY(-50%);
+  position: absolute;
+  border: 1px dashed rgba(255, 255, 255, 0.856);
+}
+.bottom{
+  position: absolute;
+  width: 100vw;
+  bottom: 0;
+  
+}
+button{
+  margin-top: 10rpx;
 }

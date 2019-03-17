@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/index/avatar",
     "pages/index/vfblock",
     "pages/index/verification",
     "pages/index/index"
@@ -7,7 +8,7 @@
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "Jarry",
     "navigationBarTextStyle":"black"
   }
 }

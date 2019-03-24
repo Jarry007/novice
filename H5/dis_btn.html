@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>disable-btn</title>
+</head>
+<style type="text/css" rel="stylesheet">
+    .default{
+        border: 1px solid #dddddd;
+        width: 230px;
+        height: 110px;
+        text-align: center;
+        line-height: 10px;
+        color: white;
+        background: cornflowerblue;
+    }
+    .disable{
+        border: 1px solid #ffffff;
+        width: 230px;
+        height: 110px;
+        text-align: center;
+        line-height: 10px;
+        color: black;
+        background: #dddddd;
+    }
+</style>
+
+<body>
+<button class="default" id="default">默认</button>
+<button class="disable">禁用</button>
+
+<script>
+    let sleep = 10  , interval = false;
+    const default_ = document.getElementById('default');
+    default_.onclick = function () {
+        if (!interval){
+            default_.style.background = '#dddddd';
+            default_.style.color = 'black';
+            default_.disabled = 'disabled';
+            default_.innerHTML = setInterval(function () {
+
+                sleep--
+
+            },1000);
+            interval = setInterval (function ()
+            {
+                if (sleep === 0)
+                {
+                    if (!!interval)
+                    {
+                        clearInterval (interval);
+                        interval = null;
+                        sleep = 30;
+                        btn.style.cursor = "pointer";
+                        btn.removeAttribute ('disabled');
+                        //btn.value = "免费获取验证码";
+                       // btn.style.backgroundColor = '';
+                    }
+                    return false;
+                }
+                btn.value = "重新发送 (" + sleep-- + ")";
+            }, 1000);
+        }
+
+
+        
+    }
+</script>
+</body>
+</html>

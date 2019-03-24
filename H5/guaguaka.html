@@ -132,7 +132,7 @@
         context.fillStyle = '#888';
         context.fillRect(0, 0, canvas.width, canvas.height);
         context.fillText('刮一刮', 25, 60);
-        //使用globalCompositeOperation 中的destination-out ,使已经填充的颜色变透明;
+        //使用globalCompositeOperation 中的destination-out ,使已经填充的颜色变透明;原有内容中与新图形重叠的部分会被保留，其它区域都变成透明的
         context.globalCompositeOperation = 'destination-out';
         var mousemove = false;
         //canvas 监听mousemove，进行擦除；
@@ -150,9 +150,8 @@
                 let imgData = context.getImageData(0, 0, canvas.width, canvas.height).data,
                     long = imgData.length,
                     num = 0;//初始化刮开的像素
-
                 for (i = 0; i < long; i += 4) {
-                    let transparent = imgData[i + 4];
+                    let transparent = imgData[i +   4];
                     if (transparent < 10) {//如果透明度小于10
                         num++;//便刮开
                     }

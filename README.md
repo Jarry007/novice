@@ -21,5 +21,6 @@
 - 2019/3/18 [H5实现写信效果](https://zjrzjr.cn/write_mail)
 - 2019/3/19 [用python的flask给微信小程序写一个多层api(上)](https://blog.csdn.net/qq_41107410/article/details/88881868)
 - 2019/3/20 [用python的flask给微信小程序写一个多层api(下)](https://blog.csdn.net/qq_41107410/article/details/88888279)
-- 2019/3/21 小Demo先告一段了，开给整合做东西了，等做完目前的工作再继续更新
-- 2019
+- 2019/3/21 [转化html文本到微信小程序](https://mp.csdn.net/mdeditor/89038259#)
+- 2019/3/22 [微信小程序实现代码高亮](https://mp.csdn.net/mdeditor/89042212#)
+- 2019/3/23 小Demo先告一段了，开给整合做东西了，等做完目前的工作再继续更新

@@ -1,7 +1,7 @@
 /* pages/index/avatar.wxss */
 page{
   box-sizing: border-box;
- background: rgba(5, 5, 5, 0.774)
+ background: #050505c5
 }
 .show{
   position: absolute;

@@ -6,16 +6,18 @@
 	<link href="https://cdn.bootcss.com/font-awesome/5.8.0/css/all.css" rel="stylesheet">
 	<style>
 
-		*{
+		* {
 			box-sizing: border-box;
 			margin: 0;
 			padding: 0;
 			border: 0;
 		}
-		body{
+
+		body {
 			background-color: #f7f0f9;
 		}
-		.close{
+
+		.close {
 			position: absolute;
 			float: right;
 			top: 30px;
@@ -23,13 +25,15 @@
 			font-size: 50px;
 			transition: transform 1s;
 		}
-		.close:hover{
+
+		.close:hover {
 			transform: rotate(270deg);
 		}
-		.box{
+
+		.box {
 			top: 5vh;
 			position: absolute;
-			color:#668b3ba3;
+			color: #668b3ba3;
 			height: 80vh;
 			width: 90vw;
 			left: -100vw;
@@ -38,16 +42,18 @@
 			opacity: 1;
 			box-shadow: 6px 12px 27px #847f7f;
 		}
-		.show{
+
+		.show {
 			background: #f7f6de;
 			text-align: center;
 			font-size: 40px;
 			font-weight: bold;
-			color:#668b3ba3;
+			color: #668b3ba3;
 			height: 80vh;
 			width: 90vw;
 			overflow: scroll;
 		}
+
 		.el-base {
 			position: absolute;
 			top: 40%;
@@ -57,8 +63,9 @@
 			border-radius: 15px;
 			transform: translateX(-50%) translateY(-50%);
 			box-shadow: 1px 2px 10px 12px #464344;
-			text-align:center;
+			text-align: center;
 		}
+
 		.el-inner-space {
 			border-radius: 15px;
 			border-top: solid 20vw transparent;
@@ -69,10 +76,11 @@
 			width: 0;
 
 		}
+
 		.el-flap {
 			position: absolute;
 			border-radius: 15px;
-			top:0;
+			top: 0;
 			left: 0;
 			border-top: solid 20vw cornflowerblue;
 			border-right: solid 40vw transparent;
@@ -80,9 +88,10 @@
 			border-left: solid 40vw transparent;
 			height: 0;
 			width: 0;
-			animation: el-open 2.5s ;
+			animation: el-open 2.5s;
 		}
-		.open{
+
+		.open {
 			width: 200px;
 			height: 200px;
 			font-size: 60px;
@@ -91,6 +100,7 @@
 			display: block;
 			text-align: center;
 		}
+
 		@keyframes el-open {
 			0% {
 				border-top: solid 20vw #3292e0;
@@ -103,7 +113,8 @@
 				transform-origin: center top;
 			}
 		}
-		.music{
+
+		.music {
 			color: rebeccapurple;
 			font-size: 70px;
 			position: absolute;
@@ -113,7 +124,8 @@
 			top: 50px;
 			animation: rotate 4s linear infinite;
 		}
-		.music2{
+
+		.music2 {
 			color: #000000;
 			font-size: 70px;
 			position: absolute;
@@ -123,25 +135,27 @@
 			top: 50px;
 
 		}
+
 		@keyframes rotate {
 			0% {
 				transform: rotate(0deg);
 			}
-			100%{
+			100% {
 				transform: rotate(360deg);
 			}
 		}
-		.text{
+
+		.text {
 			position: absolute;
 			border-radius: 20px;
 			width: 90vw;
 			height: 50vh;
-			top:25vh;
+			top: 25vh;
 			left: 5vw;
 			line-height: 60px;
 			font-size: 40px;
 			background: cornflowerblue;
-			box-shadow: 0px 2px 12px 12px cornflowerblue;
+			box-shadow: 0px 27px 24px -15px #adb7c5;
 			font-weight: bold;
 			color: white;
 			text-align: center;
@@ -149,12 +163,13 @@
 		}
 	</style>
 </head>
-<body id="body" >
-<audio src="https://music.163.com/song/media/outer/url?id=423118698.mp3"  id="audio" controls="controls" loop="true" hidden="true" >
+<body id="body">
+<audio src="https://music.163.com/song/media/outer/url?id=423118698.mp3" id="audio" controls="controls" loop="true"
+	   hidden="true">
 </audio>
 <div class="music" id="pause" onclick="paused()"><i class="fa fa-music" aria-hidden="true">
 </i></div>
-<div class="music2" id="play" style="display: none" onclick="playd()"><i class="fa fa-music" >
+<div class="music2" id="play" style="display: none" onclick="playd()"><i class="fa fa-music">
 </i></div>
 <div class="box" id="box">
 	<div id="showStr" class="show">
@@ -196,26 +211,28 @@
 <div class="el-base" id="mail">
 	<div class="el-inner-space">
 		<div class="el-flap"></div>
-		<div class="open" onclick="f()"> <i class="fa fa-angle-double-up" aria-hidden="true"></i><br>
-		开 启</div>
+		<div class="open" onclick="f()"><i class="fa fa-angle-double-up" aria-hidden="true"></i><br>
+			开 启
+		</div>
 	</div>
 </div>
 <script>
 	const width_ = window.screen.width;
-	const body= document.getElementById('body'),
-			mail =  document.getElementById('mail');
+	const body = document.getElementById('body'),
+			mail = document.getElementById('mail');
 	var show = document.getElementById('box'),
 			pause_ = document.getElementById('pause'),
 			play_ = document.getElementById('play');
 	const audio = document.getElementById('audio'),
 			str_ = document.getElementById('string');
 	console.log(body);
+
 	function f() {
 		audio.play();
 		let timer = null;
 		let index = 0;
 		let str = str_.innerHTML;
-		show.style.left = width_ * 0.05	 +'px';
+		show.style.left = width_ * 0.05 + 'px';
 		body.removeChild(mail);
 		setTimeout(function () {
 			function type() {
@@ -224,35 +241,39 @@
 				}
 				document.getElementById("showStr").innerText = str.substring(0, index++) + "_";
 			}
+
 			timer = setInterval(type, 200);
-		},4000);
-		 //通过定时器来让文字逐步显示
+		}, 4000);
+		//通过定时器来让文字逐步显示
 	}
 
 	function quit() {
-		var op =1;
+		var op = 1;
+
 		function out() {
-			if(show.style.opacity <0){
+			if (show.style.opacity < 0) {
 				body.removeChild(show);
 				clearInterval(timer);
 				str_.style.display = ''
-			}
-			else {
+			} else {
 				show.style.opacity = op;
 				op -= 0.1;
 			}
 		}
-		timer=setInterval(out, 100)
+
+		timer = setInterval(out, 100)
 	}
+
 	function paused() {
-		if (!audio.pause()){
+		if (!audio.pause()) {
 			audio.pause()
 		}
 		pause_.style.display = 'none';
 		play_.style.display = '';
 	}
+
 	function playd() {
-		if(!audio.play()){
+		if (!audio.play()) {
 			audio.play()
 		}
 		pause_.style.display = '';

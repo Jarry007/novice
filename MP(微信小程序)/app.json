@@ -10,5 +10,37 @@
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "Jarry",
     "navigationBarTextStyle":"black"
-  }
+  },
+  "tabBar": {
+    "color": "#aaa",
+    "selectedColor": "#39b54a",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+        {
+            "pagePath": "pages/index/index",
+            "iconPath": "tabbar/basics.png",
+            "selectedIconPath": "tabbar/basics_cur.png",
+            "text": "主页"
+        },
+        {
+            "pagePath": "pages/index/verification",
+            "iconPath": "tabbar/component.png",
+            "selectedIconPath": "tabbar/component_cur.png",
+            "text": "动画"
+        },
+        {
+            "pagePath": "pages/index/vfblock",
+            "iconPath": "tabbar/plugin.png",
+            "selectedIconPath": "tabbar/plugin_cur.png",
+            "text": "验证码"
+        },
+        {
+            "pagePath": "pages/index/avatar",
+            "iconPath": "tabbar/about.png",
+            "selectedIconPath": "tabbar/about_cur.png",
+            "text": "裁图"
+        }
+    ]
+}
 }

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<!---
+@Jarry007
+1.三个不同的方形
+2.设置为圆角
+3.转动
+4.隐藏超出的部分
+-->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>water</title>
+    <style type="text/css" rel="stylesheet">
+    body{
+        background: #e0dcf1;
+      
+    }
+    .title{
+        text-align: center;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        font-weight: 500;
+        font-size: 28px;
+        color: #7a87c7;
+        margin-top: 20px;
+    }
+    .water-box {
+            position: absolute;
+            width: 223px;
+            height: 300px;
+            border-radius: 50%;
+            border: 2px solid #7e64ed63;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%) rotate(23deg);
+            overflow: hidden;
+            animation: wave1 linear  infinite;
+            box-shadow: 2px 3px 37px 0px #8b8ddb;
+        }
+
+        .water1 {
+            position: absolute;
+            top: 33%;
+            left: -29%;
+            height: 500px;
+            width: 500px;
+            border-radius: 32%;
+            background: rgba(121, 134, 235, 0.71);
+            transform: rotate(35deg);
+            animation: inherit;
+            animation-duration: 8s;
+        }
+
+        .water2 {
+            position: absolute;
+            top: 37%;
+            left: -28%;
+            height: 500px;
+            width: 500px;
+            border-radius: 30%;
+            background: rgba(119, 112, 215, 0.73);
+            transform: rotate(55deg);
+            animation: inherit;
+            animation-duration: 8s;
+        }
+
+        .water3 {
+            position: absolute;
+            top: 44%;
+            left: -33%;
+            height: 500px;
+            width: 500px;
+            border-radius: 30%;
+            background: rgb(104, 97, 202);
+            transform: rotate(15deg);
+            animation: inherit;
+            animation-duration: 8s;
+        }
+        @keyframes wave1{
+            0%{
+                transform: rotate(0);
+            }
+            100%{
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">一颗蛋的故事</div>
+    <div class="water-box">
+        <div class="water1">
+        </div>
+        <div class="water2">
+        </div>
+        <div class="water3">
+        </div>
+    </div>
+</body>
+
+</html>

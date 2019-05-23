@@ -14,6 +14,7 @@ Page({
 
   onLoad: function () {
     if (app.globalData.userInfo) {
+        console.log(app.globalData.openid)
       this.setData({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true

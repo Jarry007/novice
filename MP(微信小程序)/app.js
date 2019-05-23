@@ -30,9 +30,7 @@ App({
                 method: 'POST',
                 success: function(u) {
                   const encryptedData = u.data
-
                  getApp().globalData.openid=encryptedData.openId
-                 
                 },
                 fail: function(f) {
                   console.log(f)

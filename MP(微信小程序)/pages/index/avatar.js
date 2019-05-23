@@ -12,7 +12,7 @@ Page({
         x: 0,
         y: 0,
         crop_pic: '',
-        disable:false
+        disable: false
     },
     //判断图片的宽高，短的那边变成固定，长的自适应。
     onLoad: function(options) {
@@ -29,7 +29,6 @@ Page({
             },
         })
     },
-
     choose: function() {
         let that = this,
             width = that.data.screenW,
@@ -39,7 +38,6 @@ Page({
             sizeType: ['original', 'compressed'],
             sourceType: ['album', 'camera'],
             success(res) {
-                // tempFilePath可以作为img标签的src属性显示图片
                 const tempFilePaths = res.tempFilePaths[0];
                 wx.getImageInfo({
                     src: tempFilePaths,
@@ -123,7 +121,7 @@ Page({
             width: '',
             height: '',
             crop_pic: '',
-            disable:false
+            disable: false
         })
     },
     scroll: function(e) {
@@ -162,7 +160,7 @@ Page({
                     console.log(suc.tempFilePath)
                     that.setData({
                         crop_pic: suc.tempFilePath,
-                        disable:true
+                        disable: true
                     })
                 },
                 fail: err => {

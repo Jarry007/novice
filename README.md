@@ -23,7 +23,7 @@
 - 2019/3/20 [用python的flask给微信小程序写一个多层api(下)](https://blog.csdn.net/qq_41107410/article/details/88888279)
 - 2019/3/21 [转化html文本到微信小程序](https://mp.csdn.net/mdeditor/89038259#)
 - 2019/3/22 [微信小程序实现代码高亮](https://mp.csdn.net/mdeditor/89042212#)
-- 2019/3/23 [微信小程序转换时间戳及解决文本<code>标签失效](https://blog.csdn.net/qq_41107410/article/details/89061547)
+- 2019/3/23 [微信小程序转换时间戳及解决文本code标签失效](https://blog.csdn.net/qq_41107410/article/details/89061547)
 - 2019/3/24 小Demo先告一段了，开给整合做东西了，等做完目前的工作再继续更新
 
 ---

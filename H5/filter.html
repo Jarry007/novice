@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>利用css伪类实现上下遮罩效果</title>
+    <style rel='stylesheet' type="text/css">
+        body {
+            display: flex;
+        }
+
+        .moble {
+            width: 360px;
+            height: 720px;
+            /* margin: 0 auto; */
+            margin-left: 200px;
+            border: 2px solid rgb(0, 0, 0);
+            overflow: hidden;
+        }
+
+        .line {
+            height: 65px;
+            margin: 22px 20px;
+            border-radius: 5px;
+            position: relative;
+            background: #fff;
+            animation-name: animation;
+            animation-duration: 0.6s;
+            font-weight: 400;
+            font-size: 18px;
+        }
+
+        .line::before {
+            content: '';
+            display: block;
+            position: absolute;
+            background: inherit;
+            filter: blur(6px);
+            width: 100%;
+            height: 100%;
+            top: 5px;
+            left: 2px;
+            z-index: -1;
+            opacity: 0.5;
+            border-radius: inherit;
+        }
+
+        .line-img {
+            height: 200px;
+            margin: 20px 20px;
+            border-radius: 5px;
+            position: relative;
+            animation-name: animation;
+            animation-duration: 0.6s;
+            font-weight: 400;
+            font-size: 18px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+        }
+
+        .line-img::before {
+            content: '';
+            display: block;
+            position: absolute;
+            background: inherit;
+            filter: blur(4px);
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 1;
+            border-radius: inherit;
+        }
+
+        .avatar {
+            border-radius: 5px;
+            z-index: 2;
+            width: 40%;
+            height: 40%;
+            left: 10px;
+            background: inherit;
+            top: 10px;
+            position: relative;
+           
+            box-shadow: 1px 3px 13px #969696b9;
+        }
+
+        .blue {
+            background: linear-gradient(to right bottom, rgb(101, 37, 221), rgb(55, 43, 216));
+            color: #fff;
+        }
+
+        .pink {
+            background: linear-gradient(to right bottom, rgb(226, 41, 128), rgb(239, 65, 166))
+        }
+
+        .orange {
+            background: linear-gradient(to right bottom, rgb(247, 156, 62), rgb(253, 187, 88))
+        }
+
+        .green {
+            background: linear-gradient(to right bottom, rgb(49, 185, 142), rgb(69, 218, 128))
+        }
+
+        .red {
+            background: linear-gradient(to right bottom, rgb(239, 36, 73), rgb(230, 43, 129))
+        }
+
+        .cyan {
+            background: linear-gradient(to right bottom, rgb(37, 193, 199), rgb(76, 218, 212))
+        }
+
+        @keyframes animation {
+            0% {
+
+                transform: skew(-20deg, 0deg) translateX(-30%)
+            }
+
+            100% {
+
+                transform: skew(0deg, 0deg) translateX(0%)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="box">
+        <div class="block">1</div>
+        <div class="block romantic">2</div>
+        <div class="block">3</div>
+        <div class="block">4</div>
+        <div class="block">4</div>
+        <div class="block">4</div>
+        <div class="block">4</div>
+        <div class="block">4</div>
+        <div class="block">4</div>
+        
+       
+    </div> -->
+    <div class="moble">
+        <h3 style="text-align: center;color: cornflowerblue">阴影随背景颜色虚化</h3>
+        <div class="line blue" style="animation-delay: 0.2s">
+
+        </div>
+        <div class="line pink" style="animation-delay: 0.4s"></div>
+        <div class="line orange" style="animation-delay: 0.6s"></div>
+        <div class="line green" style="animation-delay: 0.8s"></div>
+        <div class="line red" style="animation-delay: 1s"></div>
+        <div class="line cyan" style="animation-delay: 1.2s"></div>
+    </div>
+    <div class="moble">
+            <h3 style="text-align: center;color: cornflowerblue">背景图片虚化</h3>
+        <div class="line-img "
+            style="animation-delay: 0.2s;background-image: url('https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bd992964bb997a45b8fb833d193adb22.jpg?w=2452&h=920')">
+            <div class="avatar"
+                style="background-image: url('https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/bd992964bb997a45b8fb833d193adb22.jpg?w=2452&h=920')""></div>
+                </div>
+                <div class=" line-img "
+                    style=" animation-delay: 0.4s;background-image:
+                url('https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9f3b87494dc2b63cf4552ee43bc3c88e.jpg?thumb=1&w=1226&h=460&f=webp&q=90')">
+                <div class="avatar"
+                style="background-image: url('https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9f3b87494dc2b63cf4552ee43bc3c88e.jpg?thumb=1&w=1226&h=460&f=webp&q=90')">
+            </div>
+        </div>
+        <div class="line-img "
+            style="animation-delay: 0.6s;background-image: url('https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e52c3e98602b90f198ec316dce253cba.jpg?thumb=1&w=1226&h=460&f=webp&q=90')">
+            <div class="avatar" style="background-image: url('https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e52c3e98602b90f198ec316dce253cba.jpg?thumb=1&w=1226&h=460&f=webp&q=90')"></div>
+        </div>
+
+    </div>
+</body>
+
+</html>

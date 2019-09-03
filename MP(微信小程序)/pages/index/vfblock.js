@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    img:'https://zjrzjr.cn:5000/static/img/blog/blog-2.jpg',
+     img:'https://blogai.cn/static/uploads/82f6bfa51778a0c55d42a334321cabf1/20190613145020_78.png',
     width:'',
     height:'',
     pic:'',

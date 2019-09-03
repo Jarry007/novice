@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas 动画</title>
+    <style>
+      
+        .canvas{
+            border: 1px solid #ddd;           
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <canvas id='canvas1' class="canvas" width="600" height="400"></canvas>
+
+
+    <script>
+
+        (function () {
+            const canvas = document.getElementById('canvas1')
+            const ctx = canvas.getContext('2d')
+            let r = 10,
+                x = Math.floor(Math.random() * (canvas.clientWidth - 10)) + 10,
+                y = r;
+            var animation = true
+            // console.log(canvas.clientWidth)
+            ctx.beginPath()
+            ctx.arc(x, y, r, 0, 2 * Math.PI)
+            ctx.fill()
+
+            function move(i) {
+                ctx.clearRect(0, 0, canvas.clientWidth, canvas.clientHeight);
+                ctx.save()
+                ctx.beginPath()
+                ctx.arc(x, i, r, 0, 2 * Math.PI)
+                ctx.fill()
+                ctx.restore()
+                console.log(i)
+            }
+            for (let i = 0; i < canvas.clientHeight; i += 10) {
+                // requestAnimationFrame(()=>move(i))
+                setTimeout(()=>move(i),2000)
+            }
+
+            function ball_y() {
+
+            }
+
+        })()
+
+
+    </script>
+</body>
+</html>

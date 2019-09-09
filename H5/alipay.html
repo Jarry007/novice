@@ -6,16 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     
-    <style></style>
+    <link rel="stylesheet" href="https://as.alipayobjects.com/g/antui/antui/10.0.18/dpl/??antui.css,widget/notice.css">
 </head>
 <body>
-    <button id="J_btn" class="btn btn-default">支付</button>
+    <button id="J_btn" class="btn btn-default am-button">支付</button>
 
     <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.min.js"></script>
     <script>
+        ap.chooseImage()
+  .then(function(result){
+    return new Promise(function(resolve, reject) {
+      yourImageDom.onload = resolve;
+      yourImageDom.onerror = reject;
+      yourImageDom.src = result.apFilePaths[0];
+    })
+  })
+  .then(function(){
+    return ap.alert('图片加载成功');
+  })
+  .catch(function(){
+    ap.showToast('图片加载失败');
+  });
       var btn = document.querySelector('#J_btn');
       btn.addEventListener('click', function(){
           console.log('click')
+          ap.alert({
+      title: '亲',
+      content: '您有新的快递消息',
+      buttonText: '我知道了'
+    }, function(){
+      //可直接传入一个字符串当作 OPTION.content 参数
+      ap.alert('用户点击了「我知道了」');
+    });
+    console.log('click2')
         ap.tradePay({
           tradeNO: '201802282100100427058809844'
         }, function(res){

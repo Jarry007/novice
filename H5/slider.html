@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<style>
+    .canvas1{
+        
+        border:1px solid #ddd;
+    }
+
+</style>
+<body>
+
+<canvas id="canvas1" class="canvas1" width="400" height="400"> </canvas>
+<canvas id="canvas2" class="canvas2"> </canvas>
+
+<script>
+
+    const canvas1 = document.getElementById('canvas1')
+    const ctx = canvas1.getContext('2d')
+    const blockX = 100,
+    blockY = 40,
+    ringX = 100,
+    ringY = 100,
+    ringR = 60;
+
+    let canMove = false;
+
+    ctx.beginPath();
+    ctx.arc(ringX,ringY,ringR,-0.5*Math.PI,1.5*Math.PI)
+    // ctx.setStrokeStyle('#353C4E')
+    // ctx.setLineWidth(20)
+    ctx.lineWidth = 10
+    ctx.stroke()
+    // ctx.draw()
+    ctx.beginPath()
+    ctx.fillStyle='red'
+    ctx.arc(blockX, blockY, 10, 0, 2 * Math.PI)
+    //   ctx.setFillStyle('#EBCBB1')
+    ctx.fill()
+
+    canvas1.addEventListener('mousedown',e=>{
+      console.log(e)
+      // ctx.clearRect(0, 0, canvas1.width, canvas1.height);
+      ctx.fillText(e.offsetX,10,50);
+      ctx.fillText(e.offsetY,10,100);
+      let deviationX = Math.abs(e.offsetX - blockX),
+      deviationY = Math.abs(e.offsetY - blockY)
+      
+      if(deviationX<5&&deviationY<5){
+        canMove = true
+        move()
+      }
+
+      canvas1.addEventListener("mouseup",e=>{
+        canMove = false
+      })
+    })
+
+
+
+    function move(){
+      canvas1.addEventListener('mousemove',e=>{
+        if(canMove){
+          // console.log(e.offsetX+'-'+e.offsetY)
+          let x = e.offsetX - ringX,
+          y = e.offsetY - ringY;
+          var angle = Math.atan2(y, x) * 180 / Math.PI +90
+          if(angle<0){
+            var angle = 360 + angle
+          }else{
+            var angle = angle
+          }
+          ctx.clearRect(0, 0, canvas1.width, canvas1.height);
+          ctx.arc(100, 100, 60, -0.5 * Math.PI, (2/360*angle - 0.5) * Math.PI)
+          ctx.lineWidth = 10
+          ctx.stroke()
+          // ctx.draw()
+          ctx.beginPath()
+        }
+       
+      })
+    }
+
+    function init(){
+
+    }
+    // canvas1.addEventListener('mousemove',e=>{
+    //   console.log('move',e)
+    // })
+    console.log('ddd')
+</script>
+</body>
+</html>

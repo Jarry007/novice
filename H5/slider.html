@@ -11,17 +11,18 @@
         border:1px solid #ddd;
     }
 
+
 </style>
 <body>
 
 <canvas id="canvas1" class="canvas1" width="400" height="400"> </canvas>
-<canvas id="canvas2" class="canvas2"> </canvas>
+<canvas id="canvas2" class="canvas2" width="400" height="400"> </canvas>
 
 <script>
 
     const canvas1 = document.getElementById('canvas1')
     const ctx = canvas1.getContext('2d')
-    const blockX = 100,
+    var blockX = 100,
     blockY = 40,
     ringX = 100,
     ringY = 100,
@@ -41,12 +42,12 @@
     ctx.arc(blockX, blockY, 10, 0, 2 * Math.PI)
     //   ctx.setFillStyle('#EBCBB1')
     ctx.fill()
-
+    ctx.stroke()
     canvas1.addEventListener('mousedown',e=>{
       console.log(e)
       // ctx.clearRect(0, 0, canvas1.width, canvas1.height);
-      ctx.fillText(e.offsetX,10,50);
-      ctx.fillText(e.offsetY,10,100);
+      // ctx.fillText(e.offsetX,10,50);
+      // ctx.fillText(e.offsetY,10,100);
       let deviationX = Math.abs(e.offsetX - blockX),
       deviationY = Math.abs(e.offsetY - blockY)
       
@@ -57,6 +58,7 @@
 
       canvas1.addEventListener("mouseup",e=>{
         canMove = false
+        console.log(blockX,blockY)
       })
     })
 
@@ -66,8 +68,12 @@
       canvas1.addEventListener('mousemove',e=>{
         if(canMove){
           // console.log(e.offsetX+'-'+e.offsetY)
-          let x = e.offsetX - ringX,
-          y = e.offsetY - ringY;
+          var x = e.offsetX - ringX,
+          y = e.offsetY - ringY,
+          t = Math.atan2(y,x);
+          blockX = Math.sin(t+Math.PI/2) * 60 + 100,
+          blockY = 100 - Math.cos(t + Math.PI / 2) * 60
+
           var angle = Math.atan2(y, x) * 180 / Math.PI +90
           if(angle<0){
             var angle = 360 + angle
@@ -75,11 +81,22 @@
             var angle = angle
           }
           ctx.clearRect(0, 0, canvas1.width, canvas1.height);
+          ctx.beginPath()
           ctx.arc(100, 100, 60, -0.5 * Math.PI, (2/360*angle - 0.5) * Math.PI)
           ctx.lineWidth = 10
-          ctx.stroke()
+          ctx.stroke()  
           // ctx.draw()
           ctx.beginPath()
+          ctx.fillStyle='red'
+          ctx.arc(blockX, blockY, 10, 0, 2 * Math.PI)
+          ctx.fill()
+          ctx.stroke()  
+
+          let value = (angle / 3.6).toFixed(0)
+
+      ctx.font = 'normal normal 16px PingFangSC-Medium sans-serif';
+      
+      ctx.fillText(`${value}%`,90 , 110);
         }
        
       })

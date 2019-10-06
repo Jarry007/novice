@@ -1,78 +1,146 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!---
+  @Jarry007
+  1.绘制圆环与滑块
+  2.判定点击事件与阈值
+  3.根据滑动坐标求出角度
+  4.根据角度绘制圆环与滑块
+  -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>环形控制器slider</title>
 </head>
 
 <style>
+  html,body{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  
+  }
     .canvas1{
         
-        border:1px solid #ddd;
+        /* border:1px solid #ddd; */
+        display: block;
     }
-
-
+    .canvas2{
+      /* border: 1px solid red; */
+      /* width: 100%; */
+      display: none;
+    
+    }
+    .box{
+      border: 1px solid blueviolet;
+    }
 </style>
 <body>
 
 <canvas id="canvas1" class="canvas1" width="400" height="400"> </canvas>
-<canvas id="canvas2" class="canvas2" width="400" height="400"> </canvas>
+<canvas id="canvas2" class="canvas2" > </canvas>
+<!-- <div id='box'> -->
+
+
+<!-- </div> -->
+
 
 <script>
-
+   
     const canvas1 = document.getElementById('canvas1')
-    const ctx = canvas1.getContext('2d')
-    var blockX = 100,
+    var ctx = canvas1.getContext('2d')
+    const canvas2 = document.getElementById('canvas2')
+    const box = document.getElementById('box')
+    var blockX = 200,
     blockY = 40,
-    ringX = 100,
-    ringY = 100,
-    ringR = 60;
+    ringX = 200,
+    ringY = 200,
+    ringR = 160;
 
     let canMove = false;
+    let canMove2 = false;
+    let scal = window.screen.availWidth / window.screen.availHeight
+
+    if(scal<1){
+      canvas2.style.display = 'block'
+      canvas1.style.display = 'none'
+      canvas2.width = document.body.clientWidth  -10
+      canvas2.height = document.body.clientWidth  -10
+      console.log(canvas2.width)
+      console.log(document.body.clientHeight)
+       ctx = canvas2.getContext('2d')
+    }
+
 
     ctx.beginPath();
+    ctx.strokeStyle='#ddd'
     ctx.arc(ringX,ringY,ringR,-0.5*Math.PI,1.5*Math.PI)
-    // ctx.setStrokeStyle('#353C4E')
-    // ctx.setLineWidth(20)
     ctx.lineWidth = 10
     ctx.stroke()
-    // ctx.draw()
+
     ctx.beginPath()
     ctx.fillStyle='red'
     ctx.arc(blockX, blockY, 10, 0, 2 * Math.PI)
-    //   ctx.setFillStyle('#EBCBB1')
     ctx.fill()
     ctx.stroke()
+
+    ctx.font = 'normal normal 25px PingFangSC-Medium sans-serif';
+    ctx.fillText('100%',160 ,200);
+
     canvas1.addEventListener('mousedown',e=>{
-      console.log(e)
-      // ctx.clearRect(0, 0, canvas1.width, canvas1.height);
-      // ctx.fillText(e.offsetX,10,50);
-      // ctx.fillText(e.offsetY,10,100);
       let deviationX = Math.abs(e.offsetX - blockX),
       deviationY = Math.abs(e.offsetY - blockY)
       
       if(deviationX<5&&deviationY<5){
         canMove = true
-        move()
+        canvas1.addEventListener('mousemove',e=>{
+          var x = e.offsetX - ringX,
+          y = e.offsetY - ringY;
+          move(e,x,y)
+        })
+        
       }
 
       canvas1.addEventListener("mouseup",e=>{
         canMove = false
-        console.log(blockX,blockY)
+       
       })
     })
+    canvas2.addEventListener('touchstart',e=>{
+      // console.log(e.touches[0])
+      // box.innerText = e.touches[0].pageX+'---'+e.touches[0].pageY
 
+      let deviationX = Math.abs( e.touches[0].pageX - blockX),
+      deviationY = Math.abs( e.touches[0].pageY - blockY)
+      if(deviationX<20&&deviationY<20){
+        canMove = true
+        // console.log('ok')
+        canvas2.addEventListener('touchmove',e=>{
+          // console.log('oooo')
+          var x = e.touches[0].pageX - ringX,
+          y = e.touches[0].pageY - ringY;
+          move(e,x,y)
+      })
+        
+      }
 
-
-    function move(){
-      canvas1.addEventListener('mousemove',e=>{
+      canvas2.addEventListener("touchend",e=>{
+        canMove = false
+      //  console.log('endd')
+      })
+      // canvas2.addEventListener('touchmove',m=>{
+      //   console.log(m.touches[0].pageX)
+      // })
+    })
+  
+    function move(e,x,y){
+      
         if(canMove){
           // console.log(e.offsetX+'-'+e.offsetY)
-          var x = e.offsetX - ringX,
-          y = e.offsetY - ringY,
-          t = Math.atan2(y,x);
-          blockX = Math.sin(t+Math.PI/2) * 60 + 100,
-          blockY = 100 - Math.cos(t + Math.PI / 2) * 60
+        
+          var  t = Math.atan2(y,x);
+          blockX = Math.sin(t+Math.PI/2) * ringR + 200,
+          blockY = 200 - Math.cos(t + Math.PI / 2) * ringR
 
           var angle = Math.atan2(y, x) * 180 / Math.PI +90
           if(angle<0){
@@ -81,8 +149,16 @@
             var angle = angle
           }
           ctx.clearRect(0, 0, canvas1.width, canvas1.height);
+
+          ctx.beginPath();
+          ctx.strokeStyle='#ddd'
+          ctx.arc(ringX,ringY,ringR,-0.5*Math.PI,1.5*Math.PI)
+          ctx.lineWidth = 10
+          ctx.stroke()
+
           ctx.beginPath()
-          ctx.arc(100, 100, 60, -0.5 * Math.PI, (2/360*angle - 0.5) * Math.PI)
+          ctx.strokeStyle='black'
+          ctx.arc(ringX, ringY, ringR, -0.5 * Math.PI, (2/360*angle - 0.5) * Math.PI)
           ctx.lineWidth = 10
           ctx.stroke()  
           // ctx.draw()
@@ -94,21 +170,13 @@
 
           let value = (angle / 3.6).toFixed(0)
 
-      ctx.font = 'normal normal 16px PingFangSC-Medium sans-serif';
+      ctx.font = 'normal normal 26px PingFangSC-Medium sans-serif';
       
-      ctx.fillText(`${value}%`,90 , 110);
+      ctx.fillText(`${value}%`,160 ,200);
         }
-       
-      })
-    }
-
-    function init(){
 
     }
-    // canvas1.addEventListener('mousemove',e=>{
-    //   console.log('move',e)
-    // })
-    console.log('ddd')
+
 </script>
 </body>
 </html>

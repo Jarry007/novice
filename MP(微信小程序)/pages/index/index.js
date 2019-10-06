@@ -67,6 +67,7 @@ Page({
     const user = app.globalData.openid
     let that = this;
     let pic = that.data.src;
+    console.log(pic)
     wx.uploadFile({
       url: 'https://zjrzjr.cn:5000/api/v/upload/' + user,
       filePath: String(pic),

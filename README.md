@@ -11,8 +11,6 @@
 - 2019/3/8 [flask中使用Ckeditor](https://blogai.cn/ckdemo)
 - 2019/3/9 [移动端实现摇一摇功能](https://blogai.cn/shake)
 - 2019/3/10 [css3绘制简单的Loading动画](https://blogai.cn/loading)
-- 2019/3/11 这几天生病了，很难受，也没空专心弄。划个水吧，等病好了就补上。
-- 2019/3/12 病依然没好，可能是最近熬夜熬得，也不怎么正常饮食。
 - 2019/3/13 [微信小程序下实现滑块验证码](https://blog.csdn.net/qq_41107410/article/details/88562426)
 - 2019/3/14 [微信小程序双指缩放及图片自适应](https://blog.csdn.net/qq_41107410/article/details/88602313)
 - 2019/3/15 [使用python给朋友空间留言每日天气状况](https://blog.csdn.net/qq_41107410/article/details/79889100)
@@ -24,9 +22,7 @@
 - 2019/3/21 [转化html文本到微信小程序](https://mp.csdn.net/mdeditor/89038259#)
 - 2019/3/22 [微信小程序实现代码高亮](https://mp.csdn.net/mdeditor/89042212#)
 - 2019/3/23 [微信小程序转换时间戳及解决文本code标签失效](https://blog.csdn.net/qq_41107410/article/details/89061547)
-- 2019/3/24 小Demo先告一段了，开给整合做东西了，等做完目前的工作再继续更新
 
----
 
 - 2019/5/23 [纯css实现水球图](https://blogai.cn/water_ball)
 - 2019/8/9 [利用css伪类实现上下遮罩。背景虚化，阴影虚化](https://blogai.cn/filter_back)

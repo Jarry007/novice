@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        .circle{
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: cornflowerblue;
+            overflow: hidden;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            /* clip: rect(0px 250px 250px 0px); */
+        }
+        .pie{
+            width: inherit ;
+            height:inherit;
+            position: relative;
+        }
+        .item-0{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: coral;
+           transform: rotate(36deg) skew(54deg); 
+           transform-origin: 250px 250px;
+           
+           text-align: center;
+        }
+        .item-1{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: rgb(255, 214, 80);
+           transform: rotate(72deg) skew(54deg); 
+           transform-origin: 250px 250px;
+           line-height: 50%;
+           text-align: center;
+        }
+        .item-2{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: rgb(182, 255, 80);
+           transform: rotate(108deg) skew(54deg); 
+           transform-origin: 250px 250px;
+           line-height: 50%;
+           text-align: center;
+        }
+        .item-3{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: rgb(80, 255, 144);
+           transform: rotate(144deg) skew(54deg); 
+           transform-origin: 250px 250px;
+           line-height: 50%;
+           text-align: center;
+        }
+        .item-4{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: rgb(80, 182, 255);
+           transform: rotate(180deg) skew(54deg); 
+           transform-origin: 250px 250px;
+        }
+        .item-5{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: rgb(141, 80, 255);
+           transform: rotate(216deg) skew(54deg); 
+           transform-origin: 250px 250px;
+        }
+        .item-6{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: rgb(205, 80, 255);
+           transform: rotate(252deg) skew(54deg); 
+           transform-origin: 250px 250px;
+        }
+        .item-7{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: rgb(255, 80, 205);
+           transform: rotate(288deg) skew(54deg); 
+           transform-origin: 250px 250px;
+        }
+        .item-8{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: rgb(58, 32, 41);
+           transform: rotate(324deg) skew(54deg); 
+           transform-origin: 250px 250px;
+        }
+        .item-9{
+            position: absolute;
+           top: 0;
+           left: 0;
+           width: 50%;
+           height: 50%;
+           background: rgb(255, 80, 80);
+           transform: rotate(360deg) skew(54deg); 
+           transform-origin: 250px 250px;
+        }
+
+        .pointer{
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 5px;
+            height: 50px;
+            background: rgb(21, 34, 34);
+            border: 1px solid #ccc;
+            z-index: 1;
+            transform: translateX(-50%);
+        }
+
+        .show{
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            height: 100px;
+            width: 100px;
+            border: 1px solid #ccc;
+            line-height: 100px;
+            color: #fff;
+            text-align: center;
+        }
+        
+
+     </style>
+</head>
+<body>
+    <div class="circle ">
+        <div class="pointer"></div>
+        <div class="pie" id='pie'>
+            <div class="item-0">1</div>
+            <div class="item-1">2</div>
+            <div class="item-2">3</div>
+            <div class="item-3">4</div>
+            <div class="item-4">5</div>
+            <div class="item-5">6</div>
+            <div class="item-6">7</div>
+            <div class="item-7">8</div>
+            <div class="item-8">9</div>
+            <div class="item-9">10</div>
+
+        </div>
+
+    </div>
+    <div>
+
+        <button onclick='strat_()' id='start'>开始</button>
+        <button onclick='reset()' id='reset'>重置</button>
+    </div>
+
+    <div class="show" id='show'>中奖色</div>
+    <script>
+        const colorList = ['coral','rgb(255, 214, 80)','rgb(182, 255, 80)','rgb(80, 255, 144)','rgb(80, 182, 255)','rgb(141, 80, 255)','rgb(205, 80, 255)','rgb(255, 80, 205)','rgb(58, 32, 41)','rgb(255, 80, 80)']
+        function reset(){
+            
+            const pie = document.getElementById('pie')
+            pie.style =''
+        }
+        function strat_(){
+
+
+            const pie = document.getElementById('pie')
+           
+            const final_num = Math.floor(Math.random()*9)  ; 
+            let final_angel = final_num * 36 + Math.floor(Math.random()*35) -17;
+            // pie.className += '  rotate'
+        
+                pie.style =`transform: rotate(${-final_angel -3600}deg); transition-timing-function: cubic-bezier( 0.035,0.795, 0.05,1);
+   transition-duration: 5s;
+   transition-property: all;`
+
+                console.log('开始',final_angel)
+                console.log('中将人',final_num +2)
+
+                const choseColor = document.getElementById('show')
+                setTimeout(()=>{
+                    choseColor.style =`background:${colorList[final_num+1]}`
+                },5000)
+               
+
+            // alert(`中奖人${final_num}`)
+           
+           
+        }
+    </script>
+</body>
+</html>

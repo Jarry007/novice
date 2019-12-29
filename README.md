@@ -28,4 +28,5 @@
 - 2019/8/9 [利用css伪类实现上下遮罩。背景虚化，阴影虚化](https://blogai.cn/filter_back)
 - 2019/9/6 [微信小程序中日历的实现](https://blog.csdn.net/qq_41107410/article/details/100567078)
 - 2019/10/6 [环形滑动条（slider）的实现](https://blogai.cn/static/slider.html)
+- 2019/12/29 [转盘抽奖的实现](https://blogai.cn/static/rotate.html)
 

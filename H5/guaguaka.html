@@ -150,6 +150,8 @@
                 let imgData = context.getImageData(0, 0, canvas.width, canvas.height).data,
                     long = imgData.length,
                     num = 0;//初始化刮开的像素
+
+                    // console.log(long)
                 for (i = 0; i < long; i += 4) {
                     let transparent = imgData[i +   4];
                     if (transparent < 10) {//如果透明度小于10

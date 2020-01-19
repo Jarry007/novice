@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>cccc</title>
+
+    <style>
+        .container{
+            width: 40vw;
+            height: 60vh;
+            border: 1px solid #ccc;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+        .canvas{
+            width: inherit;
+            height: 80%;
+            background: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <canvas class="canvas" id="canvas"></canvas>
+    </div>
+
+
+    <script>
+
+            var danmuList = [{ top: 20, left: 30, value: '黎耀辉，不如我们重新来过' }, { top: 40, left: 0, value: '如果我多一张船票，你会不会跟我走' },
+             { top: 80, left: 30, value: '目光虽有错落，心事早有重叠' }, { top: 120, left: 281, value: '功夫是纤毫之争，真打坏了东西算我输' }]
+        function doTs(){
+            const canvas = document.getElementById('canvas')
+            const ctx = canvas.getContext('2d');
+            var screenWidth = ctx.canvas.clientWidth,
+            screenHeight = ctx.canvas.clientHeight;
+
+    
+
+            // console.log(ctx)
+            canvas.width = screenWidth
+            canvas.height = screenHeight
+            
+            console.log(screenWidth/2)
+            // ctx.font = '17px Arial';
+            // ctx.fillStyle  = '#E8DBBD';
+            // ctx.fillText('ctx.canvas.clientHeight', 0, 17);
+
+            this.canvas = canvas;
+            this.ctx = ctx
+            
+            drawText()
+            
+            function drawText() {
+                this.ctx.clearRect(0, 0, screenWidth, screenHeight)
+                // console.log(danmuList)
+                this.ctx.save()
+                if (danmuList.length) {
+                    for (let i = 0; i < danmuList.length; i++) {
+                        let items = danmuList[i]
+                        items.left += 2
+                        this.ctx.font = '15px Arial';
+                        this.ctx.fillStyle = '#E8DBBD';
+                        this.ctx.fillText(items.value, items.left, items.top);
+                        this.ctx.fillText(danmuList[0].left, 0, 220);
+                        this.ctx.restore();
+                        if (items.left > screenWidth / 2) {
+                            danmuList.splice(i, 1)
+                        }
+
+                        // setInterval(() => {
+                        //     this.drawText.bind(this)
+                        // }, 100);
+
+                    }
+                }
+
+
+
+            }
+        }
+
+        doTs()
+    </script>
+</body>
+</html>

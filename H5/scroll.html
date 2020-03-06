@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>
+    <title>数字滚动</title>
+</head>
+<style>
+    body{
+        overflow: hidden;
+    }
+    .box{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 400px;
+        height: 50px;
+        /* background: cornflowerblue; */
+        transform: translateX(-50%) translateY(-50%);
+        overflow: hidden;
+    }
+    .num{
+        top: 0;
+        position: absolute;
+        left: 0;
+        width: 50px;
+        color: #222;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        padding: 0;
+        line-height: 50px;
+        word-wrap: break-word;
+        /* height: 500px; */
+        font-size: 60px;
+        transition: top ease-out;
+        display: inline-block;
+        transition-duration: 1s;
+        /* transition-delay: 1s; */
+    }
+    .scroll-btn{
+        width: 200px;
+        height: 50px;
+        border-radius: 10px;
+        background: #111;
+        color: #fff;
+        box-shadow: 0 5px 12px -2px #111;
+        border: none;
+        position: absolute;
+        top: calc(50% + 50px);
+        left: calc(50% - 100px);
+    
+    }
+   
+
+    
+</style>
+<body>
+    <button onclick="begin()" class="scroll-btn">开始滚动</button>
+    <div class="box" id='box'>
+     
+    </div>
+
+    <script>
+        let screen = window.screen
+     
+        const _info = document.getElementById('info')
+        // _info.innerHTML = `${screen.availWidth},${screen.availHeight}`
+        if(screen.availWidth>screen.availHeight){
+            begin()
+        }else{
+            const  _box = document.getElementById('box');
+            _box.style.width = `${screen.availWidth -20}px` 
+            begin()
+        }
+       
+        function begin(){
+            const _num = Math.floor( Math.random() * 10000000),
+            _length = (_num).toString().length,
+            _box = document.getElementById('box');
+
+            while(_box.childNodes.length){
+                _box.removeChild(_box.firstChild)
+            }
+        
+            creatNum(_length,_box)
+        }
+  
+
+         
+        function random(num1,left){  
+    
+            const _top = Math.floor( Math.random() *10) +1
+
+            num1.style.top = `${-_top * 50}px` 
+            num1.style.left = `${left}px`
+        }
+
+        function creatNum(_length,_box){
+           
+            for(let i=0;i<_length;i++){
+                let _div = document.createElement('div')
+                _div.innerHTML = '00123456789' 
+                _div.className = 'num'
+                _box.appendChild(_div)
+                setTimeout(()=>{random(_div,i*50)},100)
+            }
+
+        }
+    </script>
+</body>
+</html>

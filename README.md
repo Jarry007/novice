@@ -31,11 +31,14 @@
 - 2019/9/6 [微信小程序中日历的实现](https://blog.csdn.net/qq_41107410/article/details/100567078)
 
 - 2019/10/6 [环形滑动条（slider）的实现](https://blogai.cn/static/slider.html)
+
 - 2019/12/29 [转盘抽奖的实现](https://blogai.cn/static/rotate.html)
 
 - 2019/12/29 [抽奖转盘的实现](https://blogai.cn/static/rotate.html)
 
 - 2020/2/22 [CSS乞丐版的抖音风故障艺术](https://blogai.cn/static/glicth.html)
+
+- 2020/3/6 [数字滚动效果](https://blogai.cn/static/scroll.html)
 
   
 

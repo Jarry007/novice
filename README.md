@@ -34,11 +34,11 @@
 
 - 2019/12/29 [转盘抽奖的实现](https://blogai.cn/static/rotate.html)
 
-- 2019/12/29 [抽奖转盘的实现](https://blogai.cn/static/rotate.html)
-
 - 2020/2/22 [CSS乞丐版的抖音风故障艺术](https://blogai.cn/static/glicth.html)
 
 - 2020/3/6 [数字滚动效果](https://blogai.cn/static/scroll.html)
+
+- 2020/4/8 [拖动排序列表的实现（兼容pc端和移动端）](https://blogai.cn/static/drag.html)
 
   
 

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<!-- 
+    @Jarry007
+    通过监听moves的值去动态改变数组，再将绝对布局下的各个DOM根据其在数组中的索引乘以
+    行高作为top的值即可实现。
+ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽列表</title>
+</head>
+
+<style>
+    .tips{
+        position: absolute;
+        bottom: 5vh;
+        color: #ccc;
+        width: calc(100% - 30px);
+        text-align: center;
+        box-sizing: border-box;
+    }
+   .pc{
+    /* position: relative; */
+    box-sizing: border-box;
+   }
+   .pc .container{
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translateX(-50%) translateY(-50%);
+       width: 400px;
+       height: 90vh;
+       border: 1px solid cornflowerblue;
+   }
+   .list{
+       width: inherit;
+       height: inherit;
+       position: relative;
+   }
+   .item{
+       position: absolute;
+       text-align: center;
+       color: crimson;
+       width: 100%;
+       border-bottom: 1px solid #eee;
+       left: 0;
+       transition: 0.3s all ease-out;
+   }
+   .active{
+      visibility: hidden;
+   }
+   .show{
+       text-align: center;
+       color: crimson;
+       width: 100%;
+       border-bottom: 1px solid #eee;
+       left: 0;
+       box-shadow: 0 0 12px 1px rgba(134, 133, 133, 0.7);
+       background: rgba(255, 255, 255, 0.6);
+       /* display: none; */
+       visibility:hidden;
+       position: absolute;
+   }
+</style>
+
+<body >
+    <div class="container">
+        <div class="list" id='list'>
+            
+            <div class="show" id='show'></div>
+        </div>
+    </div>
+
+    <div class="tips">
+        按住上下拖动，即可将数组排序。
+        <div style="font-size: 80%;">
+            移动端与PC端都可正常使用
+        </div>
+    </div>
+
+<!-- <button onclick="_vibrare()">震动</button>
+<div id='show'></div> -->
+
+
+<script>
+    const _height = 50
+    const _num = 8
+    let sortList = []
+    let canMove, startY, piontY, id
+
+    const isMobile = function () {
+        return window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+    }
+    const body = document.querySelector('body')
+    // console.log(body)
+    if (isMobile()) {
+        body.className += 'mobile'
+    } else {
+        body.className += 'pc'
+    }
+
+    const _list = document.getElementById('list')
+    const show_ = document.getElementById('show')
+    for (let i = 0; i < _num; i++) {
+        addDom(i)
+        sortList.push(i)
+    }
+    function _vibrare(){
+        navigator.vibrate = navigator.vibrate ||
+					navigator.webkitVibrate ||
+					navigator.mozVibrate ||
+					navigator.msVibrate;
+ 
+				if(navigator.vibrate) {
+                    navigator.vibrate(100);
+				}
+
+    }
+    _list.addEventListener('touchmove', function (e) {
+       
+        touchMove.apply(this, arguments)
+    })
+    _list.addEventListener('touchend',function(e){
+        touchEnd.apply(this, arguments)
+    })
+    _list.addEventListener('mousemove', function (e) {
+        if (canMove) {
+            mouseMove.apply(this, arguments)
+        }
+    })
+
+    _list.addEventListener('mouseup', function (e) {
+        mouseUp.apply(this, arguments)
+    }, { passive: false })
+    function touchStart(e){
+        id = parseInt(this.id)
+        let index_ = sortList.indexOf(id)
+        canMove = true
+        e.preventDefault()
+        startY = e.touches[0].pageY
+        piontY =e.touches[0].pageY
+        show_.style.visibility = 'visible'
+        show_.style.height = `${_height}px`
+        show_.style.lineHeight = `${_height}px`
+        show_.style.top = `${index_ * _height}px`
+        show_.innerHTML = sortList[index_]
+    }
+    function mouseDown(e) {
+        id = parseInt(this.id)
+        let index_ = sortList.indexOf(id)
+        canMove = true
+        e.preventDefault()
+        startY = e.pageY
+        piontY = e.pageY
+        show_.style.visibility = 'visible'
+        show_.style.height = `${_height}px`
+        show_.style.lineHeight = `${_height}px`
+        show_.style.top = `${index_ * _height}px`
+        show_.innerHTML = sortList[index_]
+    }
+    function touchMove(e) {
+        // console.log(e)
+        let y = e.touches[0].pageY
+        bothUseMove(y)
+    }
+    function bothUseMove(y) {
+        let moves = y - startY
+        let moves1 = y - piontY
+        show_.style.transform = `translateY(${moves}px)`
+        let moveList = ~~(moves1 / _height)
+        // console.log(moveList)
+        let result = lineChange(id, sortList, moveList)
+        // console.log(result)
+        let dataStr = (sortList).toString()
+        let resStr = (result).toString()
+        // console.log(dataStr,resStr)
+        if (dataStr !== resStr) {
+            // 如果数组变化了，改变Dom的位置
+            // changeIndex()
+            piontY = (_height * moveList) + piontY
+            sortList = result
+            // id = id + moveList
+            _vibrare()
+            changeIndex()
+            // console.log(sortList)
+        }
+    }
+    function mouseMove(e) {
+        let y = e.pageY
+        bothUseMove(y)
+    }
+    function touchEnd(e){
+        canMove = false
+        show_.style.visibility = 'hidden'
+        show_.style.transform = 'translateY(0px)'
+        startY = ''
+        piontY = ''
+        // console.log('iuuuupppp')
+    }
+    function mouseUp(e) {
+        canMove = false
+        show_.style.visibility = 'hidden'
+        show_.style.transform = 'translateY(0px)'
+        startY = ''
+        piontY = ''
+        // console.log('iuuuupppp')
+    }
+    function changeIndex() {
+        // const change_ = document.getElementById('1')
+        // console.log(change_.style)
+        // change_.style.top = `200px`
+        const lists_ = document.querySelectorAll('.item')
+        // console.log(lists_)
+        for (let i = 0; i < lists_.length; i++) {
+            let id = parseInt(lists_[i].id)
+            // console.log(id)
+            // console.log(sortList)
+            // console.log(sortList.indexOf(id) * _height)
+            lists_[i].style.top = `${sortList.indexOf(id) * _height}px`
+            // console.log(lists_[i].style.top)
+        }
+    }
+    function addDom(i) {
+        let _div = document.createElement('div')
+        _div.className = 'item'
+        _div.style.height = `${_height}px`
+        _div.style.lineHeight = `${_height}px`
+        _div.style.top = `${i * _height}px`
+        _div.innerHTML = i
+        _div.id = i
+        _div.addEventListener('touchstart',function(e){
+            touchStart.apply(this, arguments)
+        })
+        _div.addEventListener('mousedown', function (e) {
+            // console.log('mousedown',e)
+            mouseDown.apply(this, arguments)
+
+        }, { passive: false })
+        // _div.addEventListener('mousemove',function(e){
+        //     if(canMove === this.id){
+        //         console.log('move',e)
+        //         mouseMove.apply(this,arguments)
+        //     }
+
+        // })
+
+        // _div.addEventListener('mouseup',function(e){
+        //     mouseUp.apply(this,arguments)
+        // })
+        _list.appendChild(_div)
+    }
+
+    function lineChange(val_, ary_, move_) {
+        let arys_ = ary_.slice()
+        if (move_ && move_ < ary_.length) {
+
+            let afterVal = val_
+            let valIndex = arys_.indexOf(afterVal)
+            let afterMove = valIndex + move_
+            arys_.splice(valIndex, 1)
+            arys_.splice(afterMove, 0, afterVal)
+
+            return arys_
+        }
+
+        return arys_
+    }
+    
+    // function removeOther(id){
+    //     const lists_ =  document.querySelectorAll('.item')
+    //     for(let i=0;i<lists_.length;i++){
+    //        if (lists_[i].id === id) continue
+    //        lists_[i].className = 'item'
+    //     }
+    // }
+</script>
+
+
+</body>
+</html>

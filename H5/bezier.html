@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贝塞尔</title>
+    <style>
+        .canvas{
+            width: 400px;
+            height: 200px;
+            border: 1px solid #ddd; 
+        }
+        
+        
+    </style>
+</head>
+<body>
+        <canvas class="canvas" id='canvas' width='400' height="200"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canvas'),
+            ctx = canvas.getContext('2d');
+        const lx = ~~(Math.random() * 350)
+        const ly = ~~(Math.random() * 150)
+        const lr = ~~(5 + 5 * Math.random() )
+        // console.log(canvas)
+        console.log(canvas.width,canvas.height)
+        var mousemove
+        var lCircle = [lx,ly,lr]
+        var bCircle = [200,90,16] 
+        console.log(lCircle)
+
+        init(canvas,ctx,lCircle)
+        canvas.addEventListener('mousedown', function (e) {
+            if(Math.abs(e.offsetX -lCircle[0])<10&&Math.abs(e.offsetY-lCircle[1])<10){
+                // console.log('down',e)
+            e.preventDefault(); //去除默认响应
+            mousemove = true;//按下鼠标，mousemove开启
+            }
+           
+        });
+        canvas.addEventListener('mousemove', (e)=>{
+            if (mousemove) {
+                // console.log(e)
+                bCircle[0] = e.offsetX
+                bCircle[1] = e.offsetY 
+        
+                draw(canvas,ctx,lCircle,bCircle)
+            }
+        })
+        canvas.addEventListener('mouseup',function(e){
+            mousemove = false
+            
+            
+                
+               
+                
+          
+          
+            // console.log('olk',bCircle[0],lCircle)
+            // let y = e.offsetY
+            
+              
+                function bounds(){
+                    if(bCircle[0]>lCircle[0]){
+                    bCircle[0] -=4
+                    draw(canvas,ctx,lCircle,bCircle)
+                    console.log('darw')
+                    requestAnimationFrame(bounds)
+                    }
+                }
+
+                requestAnimationFrame(bounds)
+                
+            
+        })
+
+        // draw(canvas,ctx,lCircle,bCircle)
+
+
+        function init(canvas,ctx,lCircle){
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.arc(lCircle[0],lCircle[1],lCircle[2],0,Math.PI * 2)
+            ctx.fillStyle = '#f00043'
+            ctx.fill()
+        }
+        function draw(canvas,ctx,lCircle,bCircle){
+            // console.log(bCircle)
+            const d = Math.sqrt((bCircle[0] - lCircle[0]) ** 2 + (bCircle[1] - lCircle[1]) **2)
+            const rr  =  lCircle[2] * (1 - d/400) 
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath()
+            ctx.arc(lCircle[0],lCircle[1],rr,0,Math.PI * 2)
+            ctx.arc(bCircle[0],bCircle[1],bCircle[2],0, Math.PI*2)
+
+            
+            // ctx.fillText(d,20,20)
+        
+            
+            // console.log(rr)
+            ctx.fillStyle = '#f00043'
+            ctx.fill()
+        
+            ctx.save()
+
+            ctx.strokeStyle = '#f00043'
+            let x1 = lCircle[0],y1 = lCircle[1],r1 = rr
+            let x2 = bCircle[0],y2 = bCircle[1],r2 = bCircle[2]
+
+            let cosA = (y2 -y1)/d
+            let sinA = (x2-x1)/d
+            let a1x = x1 - r1 * cosA 
+            let a1y = y1 + r1 * sinA
+            let b1x = x1 + r1 * cosA 
+            let b1y = y1 - r1 * sinA
+            let a2x = x2 - r2 * cosA
+            let a2y = y2 + r2 * sinA
+            let b2x = x2 + r2 * cosA
+            let b2y = y2 - r2 * sinA
+
+            let cy = y1 + cosA * (d/2)
+            let cx = x1 + sinA * (d/2)
+            // ctx.beginPath() 
+            // ctx.fillStyle = '#111'
+            // ctx.arc(a2x,a2y,2,0,Math.PI*2)
+            // ctx.arc(cx,cy,2,0,Math.PI*2)
+            // ctx.fill()
+            // ctx.fillText(cx,20,40)
+            // ctx.fillText(cy,20,60)
+            ctx.beginPath()
+            // ctx.fillStyle = 'red'
+            ctx.lineWidth = '1'
+            ctx.lineJoin = 
+            ctx.moveTo(a1x,a1y)
+            ctx.quadraticCurveTo(cx,cy,a2x,a2y)
+            ctx.lineTo(b2x,b2y)
+            ctx.quadraticCurveTo(cx,cy,b1x,b1y)
+            ctx.lineTo(a1x,a1y)
+            ctx.stroke()
+          
+            ctx.fill()
+            
+        }
+            
+            // ctx.beginPath()
+            // ctx.moveTo(a2x,a2y)
+            // ctx.lineTo(a1x,a1y)
+            // // ctx.fill()
+           
+            // ctx.lineTo(b1x,b1y)
+            // ctx.lineTo(b2x,b2y)
+            // // ctx.fill()
+            // ctx.stroke()
+ 
+    </script>
+</body>
+</html>

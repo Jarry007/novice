@@ -39,6 +39,6 @@
 - 2020/3/6 [数字滚动效果](https://blogai.cn/static/scroll.html)
 
 - 2020/4/8 [拖动排序列表的实现（兼容pc端和移动端）](https://blogai.cn/static/drag.html)
-
+- 2020/4/22 [微信小程序中使用订阅发布模式解决处理跨页面通信](https://blog.csdn.net/qq_41107410/article/details/105690601)
   
 

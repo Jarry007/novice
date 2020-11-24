@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas的captureStream进行录制</title>
+    <style>
+        .body {
+            width: 70%;
+            margin-left: 15%;
+            display: flex;
+            justify-content: space-between;
+            height: 60vh;
+            align-items: center;
+            text-align: center;
+            color: #777777;
+        }
+
+        .body.mobile {
+            display: block;
+            height: 600px;
+        }
+
+        .main {
+            width: 300px;
+            height: 340px;
+            border: 3px solid red;
+        }
+
+        .assistant {
+            width: 200px;
+            height: 240px;
+            border: 3px solid blue;
+        }
+
+        .btn {
+            width: 120px;
+            height: 40px;
+            margin: 0 20%;
+            text-align: center;
+            line-height: 40px;
+            background: cornflowerblue;
+            color: #fff;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .btn:active {
+            filter: invert(0.1);
+        }
+
+        .video {
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body" id="body">
+        <div class="main">
+            <canvas id="draw"></canvas>
+            canvas绘制
+        </div>
+
+        <div class="assistant">
+            <video playsinline autoplay muted class="video" id="video"></video>
+            视频展示
+        </div>
+    </div>
+
+    <div class="btn" id="btn">
+        移 动
+    </div>
+
+
+    <script>
+        const isMobile = function () {
+            return window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+        }
+        const body = document.getElementById('body')
+        if (isMobile()) body.className += ' mobile'
+    
+
+        const canvas = document.getElementById('draw')
+        canvas.width = 300
+        canvas.height = 300
+        const ctx = canvas.getContext('2d')
+
+        ctx.fillRect(10, 100, 50, 50)
+
+        const btn = document.getElementById('btn')
+        btn.addEventListener('click', (e) => {
+            move(ctx, 10)
+        })
+
+        const stream = canvas.captureStream(60)
+
+        const video = document.getElementById('video')
+        video.srcObject = stream
+
+        function move(ctx, x) {
+
+            ctx.clearRect(0, 0, 300, 300)
+            ctx.save()
+            ctx.fillRect(x, 100, 50, 50)
+            x += 2
+            if (x < 300) {
+                requestAnimationFrame(() => {
+                    move(ctx, x)
+                })
+            }
+        }
+
+    </script>
+</body>
+
+</html>

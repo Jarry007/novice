@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas裁剪图片</title>
+    <style>
+        body {
+            --main: #e0e5ec;
+            --vice1: #afb3b8;
+            --vice2: #ffffff;
+            background: var(--main);
+            padding-top: 10%;
+        }
+
+        .flex-container {
+            width: 80%;
+            margin-left: 10%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .canvas {
+            width: 300px;
+            height: 300px;
+            margin: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .grab {
+            cursor: grab;
+        }
+
+        .button {
+            cursor: pointer;
+            display: inline-block;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 50px;
+            text-align: center;
+            color: #4f4d6f;
+            width: 150px;
+            height: 50px;
+            border: none;
+            background-color: transparent;
+            box-shadow: 2px 2px 7px var(--vice1), -2px -2px 7px var(--vice2);
+        }
+
+        .button:active {
+            background-color: transparent;
+            border: none;
+            color: #a0a5a8;
+            box-shadow: inset 2px 2px 7px var(--vice1), inset -2px -2px 7px var(--vice2);
+        }
+
+        .neum-icon {
+            text-align: center;
+            width: 330px;
+            height: 330px;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 4px 4px 8px var(--vice1), -4px -4px 8px var(--vice2);
+        }
+
+        .neum-icon::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 310px;
+            height: 310px;
+            border-radius: 10px;
+            overflow: hidden;
+            z-index: -1;
+            box-shadow: inset 4px 4px 8px var(--vice1), inset -4px -4px 8px var(--vice2);
+        }
+
+        .neum-icon img {
+            margin: 15px;
+            border-radius: inherit;
+            position: relative;
+            z-index: -2;
+            /* width: 300px; */
+            height: 300px;
+        }
+
+        .tips {
+            font-weight: 550;
+            color: #918fb1;
+            position: absolute;
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+        }
+
+        .input-upload {
+            color: #4f4d6f;
+            width: 150px;
+            font-weight: 600;
+            box-shadow: 2px 2px 7px var(--vice1), -2px -2px 7px var(--vice2);
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            border-radius: 6px;
+            position: relative;
+            margin-bottom: 50px;
+        }
+
+        .input-upload:active {
+            color: #a0a5a8;
+            box-shadow: inset 2px 2px 7px var(--vice1), inset -2px -2px 7px var(--vice2);
+        }
+
+        .input-upload input {
+            opacity: 0;
+            width: inherit;
+            height: inherit;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .input-range {
+            padding: 5px;
+            position: relative;
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            width: 170px;
+            background: transparent;
+            height: 20px;
+            box-shadow: 4px 4px 8px var(--vice1), -4px -4px 8px var(--vice2);
+            border-radius: 30px;
+        }
+
+        .input-range::after {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 170px;
+            height: 20px;
+            border-radius: 30px;
+            overflow: hidden;
+            z-index: -1;
+            box-shadow: inset 4px 4px 8px var(--vice1), inset -4px -4px 8px var(--vice2);
+        }
+
+        input[type='range']::-webkit-slider-thumb {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #1a61ff, #1652d9);
+
+        }
+
+        .range-text {
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: #918fb1;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="flex-container">
+        <div class="neum-icon">
+            <span class="tips">请先点击左侧上传图片</span>
+            <canvas id="canvas" class="canvas"></canvas>
+            <h3>canvas区域</h3>
+        </div>
+
+        <div>
+            <p class="input-upload">上传图片 <input id="imgup" type="file" onchange="handlerGet(this)"
+                    accept="image/png,image/jpeg"></p>
+            <input class="input-range" type="range" id="range" disabled value="0" onchange="rangeChange()">
+            <p class="range-text">上传图片后拖动滑块进行缩放</p>
+            <div class="button" id="button" onclick="clipIt()">裁剪</div>
+        </div>
+
+        <div class="neum-icon">
+            <img id="show" class="img" />
+            <h3>图片展示区域</h3>
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        const isMobile = () => {
+            return window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+        }
+        
+        if (isMobile())  alert('请使用pc打开')
+
+        let canvasWidth = 300
+        let canvasHeight = 300
+        let imgWidth, imgHeight //转化构造之后的img宽高
+        const threshold = 3 //缩放阈值，最大3倍
+        let multiple = 1
+        let canListen = false
+        let mouseDown = false
+        let startX = 0, startY = 0, endX = 0, endY = 0  //canvas触点开始
+
+        const range = document.querySelector('#range')  //滑块
+
+        const button = document.querySelector('#button')
+
+        const showImg = document.querySelector("#show")
+
+        const creatMsg = (file) => { //文件转base64
+            const reader = new FileReader()
+            reader.readAsDataURL(file)
+            reader.onload = (e) => {
+                constractSuc.call(null, e)
+            }
+        }
+
+        const constractSuc = (img) => {
+            const imgSelf = new Image()
+            imgSelf.src = img.target.result
+
+            imgSelf.onload = (res) => {
+                imgWidth = res.path[0].width
+                imgHeight = res.path[0].height
+
+                const { width, height } = aspectFill(imgWidth, imgHeight) //平铺
+
+                this.imgSelf = imgSelf
+                this.drawWid = width
+                this.drawHei = height
+
+                startX = 0, startY = 0, endX = 0, endY = 0 
+                this.ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+                this.ctx.drawImage(imgSelf, 0, 0, width, height)
+                range.removeAttribute('disabled')
+                this.canvas.className += ' grab'
+                canListen = true
+
+
+            }
+
+        }
+
+        /** 
+         * 平铺。使短的一边展示完整，长边裁剪
+        */
+        const aspectFill = (w, h) => {
+            let width, height
+            const scale = w / h
+            // const canvasScale = canvasWidth/canvasHeight
+
+            if (scale > 1) {  //宽高比大于1 横向图片 高是短边
+                height = canvasHeight
+                width = scale * height
+            } else {  // 宽是短边
+                width = canvasWidth
+                height = width / scale
+            }
+
+            return { width, height }
+        }
+
+        this.canvas = document.querySelector('#canvas')
+        this.canvas.width = canvasWidth
+        this.canvas.height = canvasHeight
+        this.ctx = this.canvas.getContext('2d')
+
+        const handlerGet = (e) => { //获取到上传的图片，进行处理
+            if (e.files[0]) return creatMsg(e.files[0])
+        }
+
+        const rangeChange = () => {
+            multiple = ((~~range.value) / 100) * threshold + 1
+
+            this.ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+            this.ctx.drawImage(this.imgSelf, endX, endY, multiple * this.drawWid, multiple * this.drawHei)
+        }
+
+        this.canvas.addEventListener('mousedown', e => {
+            mouseStart.call(null, e)
+        })
+
+        this.canvas.addEventListener('mousemove', e => {
+            if (mouseDown && canListen) mouseMove.call(null, e)
+        })
+        this.canvas.addEventListener('mouseup', e => {
+            touchEnd.call(null, e)
+        })
+
+        const mouseStart = (e) => {
+            mouseDown = true
+            startX = e.offsetX
+            startY = e.offsetY
+        }
+
+        const mouseMove = (e) => {
+
+            this.diffX = e.offsetX - startX
+            this.diffY = e.offsetY - startY
+
+            // console.log(endX + this.diffX,endY + this.diffY, multiple * this.drawWid,multiple * this.drawHei)
+
+            this.ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+            this.ctx.drawImage(this.imgSelf, endX + this.diffX, endY + this.diffY, multiple * this.drawWid, multiple * this.drawHei)
+        }
+
+        const touchEnd = (e) => {
+            mouseDown = false
+            endX += this.diffX
+            endY += this.diffY
+        }
+
+        const clipIt = () => {
+            if (!canListen) return
+            const url = this.canvas.toDataURL("image/png")
+            showImg.src = url
+        }
+
+    </script>
+
+</body>
+
+</html>

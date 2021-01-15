@@ -36,4 +36,7 @@
 - 2020/5/6 [在小程序中手写一个watch监听吧](https://blog.csdn.net/qq_41107410/article/details/105946487)
 - 2020/7/29 [使用css+svg绘制小球从滑梯滑下](https://blogai.cn/static/bezier_ball.html)
 - 2020/11/24 [canvas-captureStream实时展示 ](https://blogai.cn/static/stream.html)
+- 2021/1/15 [canvas对图片裁剪 ](https://blogai.cn/static/clip.html)
+
+
 

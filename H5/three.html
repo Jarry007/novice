@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            border: 0;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <canvas></canvas> -->
+    <script type="module">
+        import * as THREE from 'https://cdn.skypack.dev/three@0.129.0';
+        import { OrbitControls } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js';
+
+        //场景、相机、渲染器
+
+        let scene = new THREE.Scene()
+        let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 1000)
+        let renderer = new THREE.WebGLRenderer({antialias:true})
+        
+        camera.position.z = -8
+        camera.position.y = 3
+        camera.lookAt({x:0,y:0,z:0})
+        camera.up.y = 2
+
+        renderer.setSize(window.innerWidth, window.innerHeight)
+        document.body.appendChild(renderer.domElement)
+
+        let creatCube = () => {
+            let geometry = new THREE.BoxGeometry()
+            let material = new THREE.MeshBasicMaterial({ color: 0xffffff })
+            let cube = new THREE.Mesh(geometry, material)
+            cube.castShadow = true;
+            scene.add(cube)
+            cube.position.set(0,0,0);
+        }
+        creatCube()
+
+        let initLight = ()=>{
+            let ligth = new THREE.AmbientLight(0x404040)
+            scene.add(ligth)
+
+            let sLight = new THREE.SpotLight(0xffffff)
+            sLight.position.set(2,2,2)
+            scene.add(sLight)
+
+            sLight.castShadow = true
+
+        }
+        initLight()
+        
+        let planeGeometry = new THREE.PlaneGeometry(100,60,10,10)
+        let planeMa
+
+        let creat = () => {
+            renderer.render(scene, camera)
+        }
+        creat()
+
+        let ctrl = new OrbitControls(camera, renderer.domElement)
+        ctrl.addEventListener('change', creat)
+
+        
+    </script>
+</body>
+
+</html>

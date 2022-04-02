@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            padding-top: 100px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            /* padding: 0; */
+        }
+
+        .canvas {
+            border: 1px solid silver;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas class="canvas" id="canvas" width="500" height="500"></canvas>
+
+    <script>
+        const canvas = document.getElementById('canavas'),
+            ctx = canvas.getContext('2d');
+
+        /**
+         * x = (1−t)2x1 + 2(1−t)tx2 + t2x3
+         * y = (1−t)2y1 + 2(1−t)ty2 + t2y3
+        */
+
+        let x1 = 0, x2 = 100, x3 = 500, y1 = 500, y2 = 0, y3 = 500;
+        
+        let t = 0
+
+        while (t<1){
+            t+= 0.01
+            
+            drawPoint(t)
+        }
+
+
+        function drawPoint(t){
+             
+        }
+
+
+
+    </script>
+</body>
+
+</html>

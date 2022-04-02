@@ -85,7 +85,7 @@
 
 <script>
     const _height = 50
-    const _num = 8
+    const _num = 10
     let sortList = []
     let canMove, startY, piontY, id
 
@@ -93,7 +93,9 @@
         return window.navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
     }
     const body = document.querySelector('body')
-    // console.log(body)
+
+    // 在有缩略图的情况下可以将缩略图固定宽高，拖动排序
+    
     if (isMobile()) {
         body.className += 'mobile'
     } else {
